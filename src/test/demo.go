@@ -21,14 +21,24 @@ func main() {
 	//search.Run("president")
 	//pac.Printstr("this")
 
-	var l list.List
-	l.PushBack("123")
+	//var l list.List
+	//l.PushBack("123")
 	//addList(&l)
-	addElement(l.Front())
-	fmt.Println(l.Front().Value)
+	//addElement(l.Front())
+	//fmt.Println(l.Front().Value)
 
 	//testSelect()
 	//testFunc()
+
+	//testRange()
+
+	//testInterface()
+
+	//testError()
+
+	test()
+
+	//testPanic()
 }
 
 func addList(l *list.List) {
@@ -171,4 +181,126 @@ func arrayModify(array [5]int) {
 func sliceModify(slice []int) {
 	newSlice := slice
 	newSlice[0] = 88
+}
+
+func testRange() {
+	nums := []int{2, 3, 4}
+	sum := 0
+	for i := 0; i < len(nums); i++ {
+		fmt.Print(nums[i])
+	}
+
+	for index, num := range nums {
+		fmt.Printf("%d -> %d\n", index, num)
+		sum += num
+	}
+	fmt.Println(sum)
+
+	kvs := map[string]string{"a": "apple", "b": "banana"}
+	for k, v := range kvs {
+		fmt.Printf("%s -> %s\n", k, v)
+	}
+	for i, c := range "go" {
+		fmt.Println(i, c)
+	}
+
+}
+
+type fruit interface {
+	getName() string
+	setName(name string)
+}
+type apple struct {
+	name string
+}
+
+func (a *apple) getName() string {
+	return a.name
+}
+func (a *apple) setName(name string) {
+	a.name = name
+}
+
+//编译期检查是否实现接口
+var _ fruit = &apple{}
+var _ fruit = new(apple)
+
+func testInterface() {
+	a := apple{"红富士"}
+	fmt.Print(a.getName())
+	a.setName("树顶红")
+	fmt.Print(a.getName())
+	f, ok := interface{}(a).(fruit)
+	if ok {
+		fmt.Println(f.getName())
+	}
+
+}
+
+func testPanic() {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+	defer func() {
+		panic("three")
+	}()
+	defer func() {
+		panic("two")
+	}()
+	panic("one")
+}
+
+func except() {
+	err := recover()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+}
+func testError() {
+	defer except()
+	panic("runtime error")
+}
+
+// user 在程序里定义一个用户类型
+type user struct {
+	name  string
+	email string
+}
+
+// notify 使用值接收者实现了一个方法
+func (u user) notify() {
+	fmt.Printf("Sending User Email To %s<%s>\n",
+		u.name,
+		u.email)
+}
+
+// changeEmail 使用指针接收者实现了一个方法
+func (u *user) changeEmail(email string) {
+	u.email = email
+}
+
+// main 是应用程序的入口
+func test() {
+	// user 类型的值可以用来调用
+	// 使用值接收者声明的方法
+	bill := user{"Bill", "bill@email.com"}
+	bill.notify()
+
+	// 指向user 类型值的指针也可以用来调用
+	// 使用值接收者声明的方法
+	lisa := &user{"Lisa", "lisa@email.com"}
+	lisa.notify() //这边会自动的转为(*lisa)
+
+	// user 类型的值可以用来调用
+	// 使用指针接收者声明的方法, 其实这边会被自动的 加上&
+	bill.changeEmail("bill@newdomain.com")
+	bill.notify()
+
+	// 指向user 类型值的指针可以用来调用
+	// 使用指针接收者声明的方法
+	lisa.changeEmail("lisa@newdomain.com")
+	lisa.notify()
 }

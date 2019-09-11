@@ -1,6 +1,6 @@
 // 这个示例程序展示如何在程序里造成竞争状态
 // 实际上不希望出现这种情况
-package main
+package goroutine
 
 import (
 	"fmt"

@@ -5,6 +5,9 @@ import (
 	"flag"
 	"fmt"
 	"math"
+	"strings"
+	"unsafe"
+
 	//_ "github.com/goinaction/code/chapter2/sample/matchers"
 )
 
@@ -17,38 +20,24 @@ type MyString2 string // 注意，这里没有等号。 最后的代表实际类
 //潜在类型的含义是，某个类型在本质上是哪个类型。
 type MyStrings []MyString2
 
-func main() {
-	//search.Run("president")
-	//pac.Printstr("this")
+type Object struct {
+	name string
+}
 
-	//var l list.List
-	//l.PushBack("123")
-	//addList(&l)
-	//addElement(l.Front())
-	//fmt.Println(l.Front().Value)
+func main() {
+	//pac.Printstr("eqwe")
 
 	//testSelect()
 	//testFunc()
-
 	//testRange()
-
 	//testInterface()
-
 	//testError()
-
-	test()
-
+	//test()
 	//testPanic()
+
 }
 
-func addList(l *list.List) {
-	(*l).PushFront("222")
-}
-func addElement(e *list.Element) {
-	(*e).Value = "222"
-}
-
-func testString() {
+func testFlag(){
 	//var name string
 	//flag.StringVar(&name, "name", "everyone", "The greeting object.") // [2]
 
@@ -60,6 +49,93 @@ func testString() {
 
 	flag.Parse()
 	fmt.Printf("Hello, %v!\n", name)
+}
+
+func testPoint(){
+	object := Object{ name: "123"}
+	fmt.Println(object.name)
+	obj := &object
+	fmt.Println((*obj).name)
+	ptr := uintptr(unsafe.Pointer(obj))
+	o := (*Object)(unsafe.Pointer(ptr))
+	fmt.Println(o.name)
+	fmt.Println(ptr)
+	ref := int(ptr)
+	fmt.Println(ref)
+}
+
+func testList(){
+	var l list.List
+	l.PushBack("123")
+	addList(&l)
+	addElement(l.Front())
+	fmt.Println(l.Front().Value)
+}
+
+func addList(l *list.List) {
+	(*l).PushFront("222")
+}
+func addElement(e *list.Element) {
+	(*e).Value = "222"
+}
+
+func testInt(){
+	var a =1111111
+	u := uint32(a) & 0x3f
+	fmt.Printf("%b", u)
+
+
+	var srcInt = int16(-255)
+	dstInt := int8(srcInt)
+	fmt.Printf("%v", dstInt)
+
+
+	i2 := math.MaxInt64
+	i := int32(i2)
+	i1 := int32(i2>>32)
+	fmt.Println(i2)
+	fmt.Println(i)
+	fmt.Println(i1)
+	i3 := int64(uint32(i1))<<32 | int64(uint32(i))
+	fmt.Println(i3)
+
+	var tmp1 int32 = 123424021
+	var tmp2 int16
+	var tmp3 uint16
+	tmp2 = int16(tmp1)
+	tmp3 = uint16(tmp1)
+	fmt.Printf("0x%x,%b,%d\n",tmp1,tmp1,tmp1);
+	fmt.Printf("0x%x,%b,%d\n",tmp2,tmp2,tmp2);
+	fmt.Printf("0x%x,%b,%d\n",tmp3,tmp3,tmp3);
+
+	fmt.Printf("====================================\n")
+
+	var t1 int32 = 123456789
+	var t2 int16
+	var t3 uint16
+	t2 = int16(t1)
+	t3 = uint16(t1)
+	fmt.Printf("0x%x,%b,%d\n",t1,t1,t1);
+	fmt.Printf("0x%x,%b,%d\n",t2,t2,t2);
+	fmt.Printf("0x%x,%b,%d\n",t3,t3,t3);
+}
+
+func testString() {
+
+	//UTF-8编码的三个字节\xe4、\xbd和\xa0合在一起才能代表字符'你'，而\xe5、\xa5和\xbd合
+	//在一起才能代表字符'好'。
+	i := string([]byte{'\xe4', '\xbd', '\xa0', '\xe5', '\xa5', '\xbd'}) // 你好
+	//一个值在从string类型向[]rune类型转换时代表着字符串会被拆分成一个个Unicode字符。
+	s := string([]rune{'\u4F60', '\u597D'}) // 你好
+	fmt.Println(i)
+	fmt.Println(s)
+
+
+
+	indexRune := strings.IndexRune("sdadsad;dsada", ';')
+	fmt.Println(indexRune)
+	indexByte := strings.IndexByte("sdadsad;dsada", ';')
+	fmt.Println(indexByte)
 }
 
 func getTheFlag() *string {
@@ -76,15 +152,7 @@ func testType() {
 		fmt.Printf("Hello, %v!\n", value[0])
 	}
 
-	var srcInt = int16(-255)
-	dstInt := int8(srcInt)
-	fmt.Printf("%v", dstInt)
 
-	//UTF-8编码的三个字节\xe4、\xbd和\xa0合在一起才能代表字符'你'，而\xe5、\xa5和\xbd合
-	//在一起才能代表字符'好'。
-	//i := string([]byte{'\xe4', '\xbd', '\xa0', '\xe5', '\xa5', '\xbd'}) // 你好
-	//一个值在从string类型向[]rune类型转换时代表着字符串会被拆分成一个个Unicode字符。
-	//s := string([]rune{'\u4F60', '\u597D'}) // 你好
 }
 
 func testSlice() {
@@ -147,22 +215,7 @@ func getSequence() func() int {
 	}
 }
 
-/* 定义结构体 */
-type Circle struct {
-	radius float64
-}
 
-//该 method 属于 Circle 类型对象中的方法
-func (c Circle) getArea() float64 {
-	//c.radius 即为 Circle 类型对象中的属性
-	return 3.14 * c.radius * c.radius
-}
-
-func testFunction() {
-	var c1 Circle
-	c1.radius = 10.00
-	fmt.Println("圆的面积 = ", c1.getArea())
-}
 
 // 值传递和引用传递  slice和arrat的区别
 func testValueTransform() {

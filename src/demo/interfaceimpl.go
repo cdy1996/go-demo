@@ -2,6 +2,11 @@ package main
 
 import "fmt"
 
+/*
+接口实现 指针和不是指针
+方法集
+ */
+
 type notifier interface {
 	notify()
 }

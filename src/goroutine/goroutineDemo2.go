@@ -1,6 +1,6 @@
 // 这个示例程序展示goroutine 调度器是如何在单个线程上
 // 切分时间片的
-package main
+package goroutine
 
 import (
 	"fmt"

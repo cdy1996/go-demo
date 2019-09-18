@@ -7,7 +7,6 @@ import (
 	"math"
 	"strings"
 	"unsafe"
-
 	//_ "github.com/goinaction/code/chapter2/sample/matchers"
 )
 
@@ -35,9 +34,10 @@ func main() {
 	//test()
 	//testPanic()
 
+	testString()
 }
 
-func testFlag(){
+func testFlag() {
 	//var name string
 	//flag.StringVar(&name, "name", "everyone", "The greeting object.") // [2]
 
@@ -51,8 +51,8 @@ func testFlag(){
 	fmt.Printf("Hello, %v!\n", name)
 }
 
-func testPoint(){
-	object := Object{ name: "123"}
+func testPoint() {
+	object := Object{name: "123"}
 	fmt.Println(object.name)
 	obj := &object
 	fmt.Println((*obj).name)
@@ -64,7 +64,7 @@ func testPoint(){
 	fmt.Println(ref)
 }
 
-func testList(){
+func testList() {
 	var l list.List
 	l.PushBack("123")
 	addList(&l)
@@ -79,20 +79,18 @@ func addElement(e *list.Element) {
 	(*e).Value = "222"
 }
 
-func testInt(){
-	var a =1111111
+func testInt() {
+	var a = 1111111
 	u := uint32(a) & 0x3f
 	fmt.Printf("%b", u)
-
 
 	var srcInt = int16(-255)
 	dstInt := int8(srcInt)
 	fmt.Printf("%v", dstInt)
 
-
 	i2 := math.MaxInt64
 	i := int32(i2)
-	i1 := int32(i2>>32)
+	i1 := int32(i2 >> 32)
 	fmt.Println(i2)
 	fmt.Println(i)
 	fmt.Println(i1)
@@ -104,9 +102,9 @@ func testInt(){
 	var tmp3 uint16
 	tmp2 = int16(tmp1)
 	tmp3 = uint16(tmp1)
-	fmt.Printf("0x%x,%b,%d\n",tmp1,tmp1,tmp1);
-	fmt.Printf("0x%x,%b,%d\n",tmp2,tmp2,tmp2);
-	fmt.Printf("0x%x,%b,%d\n",tmp3,tmp3,tmp3);
+	fmt.Printf("0x%x,%b,%d\n", tmp1, tmp1, tmp1)
+	fmt.Printf("0x%x,%b,%d\n", tmp2, tmp2, tmp2)
+	fmt.Printf("0x%x,%b,%d\n", tmp3, tmp3, tmp3)
 
 	fmt.Printf("====================================\n")
 
@@ -115,22 +113,24 @@ func testInt(){
 	var t3 uint16
 	t2 = int16(t1)
 	t3 = uint16(t1)
-	fmt.Printf("0x%x,%b,%d\n",t1,t1,t1);
-	fmt.Printf("0x%x,%b,%d\n",t2,t2,t2);
-	fmt.Printf("0x%x,%b,%d\n",t3,t3,t3);
+	fmt.Printf("0x%x,%b,%d\n", t1, t1, t1)
+	fmt.Printf("0x%x,%b,%d\n", t2, t2, t2)
+	fmt.Printf("0x%x,%b,%d\n", t3, t3, t3)
 }
 
 func testString() {
+	ss := "foo"
+	b := []byte(ss)
+	fmt.Println(b)
 
 	//UTF-8编码的三个字节\xe4、\xbd和\xa0合在一起才能代表字符'你'，而\xe5、\xa5和\xbd合
 	//在一起才能代表字符'好'。
+
 	i := string([]byte{'\xe4', '\xbd', '\xa0', '\xe5', '\xa5', '\xbd'}) // 你好
 	//一个值在从string类型向[]rune类型转换时代表着字符串会被拆分成一个个Unicode字符。
 	s := string([]rune{'\u4F60', '\u597D'}) // 你好
 	fmt.Println(i)
 	fmt.Println(s)
-
-
 
 	indexRune := strings.IndexRune("sdadsad;dsada", ';')
 	fmt.Println(indexRune)
@@ -151,7 +151,6 @@ func testType() {
 	if ok {
 		fmt.Printf("Hello, %v!\n", value[0])
 	}
-
 
 }
 
@@ -214,8 +213,6 @@ func getSequence() func() int {
 		return i
 	}
 }
-
-
 
 // 值传递和引用传递  slice和arrat的区别
 func testValueTransform() {

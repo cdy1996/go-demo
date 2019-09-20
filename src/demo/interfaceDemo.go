@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unsafe"
+)
 
 type Dog struct {
 	name string
@@ -22,6 +25,12 @@ func (self *Dog) SetName(name string) {
 	self.name = name
 }
 
+func New(name string) Dog {
+	return Dog{
+		name: name,
+	}
+}
+
 func main() {
 	dog1 := Dog{"little pig"}
 	dog2 := dog1
@@ -36,4 +45,13 @@ func main() {
 	var pet Pet = &dog
 	dog.SetName("monster")
 	fmt.Println(pet.Name())
+
+	New("123").SetName("d")
+
+	dog4 := Dog{"little pig"}
+	dogP := &dog4
+	dogPtr := uintptr(unsafe.Pointer(dogP))
+	namePtr := dogPtr + unsafe.Offsetof(dogP.name)
+	nameP := (*string)(unsafe.Pointer(namePtr))
+	fmt.Println(nameP)
 }

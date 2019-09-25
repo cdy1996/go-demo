@@ -34,7 +34,19 @@ func main() {
 	//test()
 	//testPanic()
 
-	testString()
+	var a = 2
+	//fmt.Printf("%b\n", a)
+	//u := uint32(-a)
+	//fmt.Printf("%b\n", u)
+	//fmt.Printf("%b\n", u)
+	//p := int32(a)
+	//fmt.Printf("%b\n", p)
+
+	var b = 10
+	fmt.Printf("%d\n", b-a)
+	fmt.Printf("%d\n", int32(uint32(b)+uint32(-a)))
+
+	//testString()
 }
 
 func testFlag() {

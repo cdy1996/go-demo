@@ -3,9 +3,9 @@ package main
 import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	pb "grpc/helloworld"
 	"log"
 	"os"
+	pb "rpc/src/grpc/helloworld"
 )
 
 const (

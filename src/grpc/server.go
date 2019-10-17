@@ -5,9 +5,9 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	pb "grpc/helloworld"
 	"log"
 	"net"
+	pb "rpc/src/grpc/helloworld"
 )
 
 const (

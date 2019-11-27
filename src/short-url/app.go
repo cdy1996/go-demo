@@ -17,7 +17,7 @@ type App struct {
 //请求
 type shortenReq struct {
 	URL           string `json:"url" validate:"nonzero"`
-	ExpireMinutes int64  `json:"expiration_in_minutes" validate:"min=0"`
+	ExpirationInMinutes int64  `json:"expiration_in_minutes" validate:"min=0"`
 }
 
 //响应

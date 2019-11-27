@@ -15,12 +15,12 @@ func main() {
 	//conn.SetReadDeadline(time.Now().Add(3*time.Second))
 	//conn.SetWriteDeadline(time.Now().Add(3*time.Second))
 
-	//httpServerTest()
+	httpServerTest()
 
 	//time.Sleep(5 * time.Minute)
 
 	//httpTest();
-	httpClientCustom()
+	//httpClientCustom()
 
 }
 
@@ -82,7 +82,14 @@ type handler struct {
 func httpServerTest() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(`hello world`))
+		if i, e := w.Write([]byte(`hello world`)); e!=nil{
+			fmt.Printf("err %d %v", i, e)
+
+		}
+
 	})
-	http.ListenAndServe("127.0.0.1:8080", nil)
+	_ = http.ListenAndServe("127.0.0.1:8080", nil)
+
+
+
 }

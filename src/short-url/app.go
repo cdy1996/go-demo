@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/justinas/alice"
 	_ "gopkg.in/go-playground/validator.v9"
 	"gopkg.in/validator.v2"
 	"log"
@@ -11,12 +12,14 @@ import (
 )
 
 type App struct {
-	Router *mux.Router
+	Router      *mux.Router
+	Middlewares *Middleware
+	Config      *Env
 }
 
 //请求
 type shortenReq struct {
-	URL           string `json:"url" validate:"nonzero"`
+	URL                 string `json:"url" validate:"nonzero"`
 	ExpirationInMinutes int64  `json:"expiration_in_minutes" validate:"min=0"`
 }
 
@@ -26,17 +29,24 @@ type shortlinkResp struct {
 }
 
 // 初始化函数
-func (a *App) Initialize() {
+func (a *App) Initialize(e *Env) {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-
+	a.Config = e
 	a.Router = mux.NewRouter()
+	a.Middlewares = &Middleware{}
 	a.initializeRoutes()
 }
 
 func (a *App) initializeRoutes() {
-	a.Router.HandleFunc("/api/shorten", a.createShortlink).Methods("POST")
-	a.Router.HandleFunc("/api/info", a.getShortlinkInfo).Methods("GET")
-	a.Router.HandleFunc("/{shortlink:[a-zA-Z0-9]{1,11}}", a.redirect).Methods("GET")
+	m := alice.New(a.Middlewares.LoggingHandler, a.Middlewares.RecoverHandler)
+	//a.Router.HandleFunc("/api/shorten", a.createShortlink).Methods("POST")
+	//a.Router.HandleFunc("/api/info", a.getShortlinkInfo).Methods("GET")
+	//a.Router.HandleFunc("/{shortlink:[a-zA-Z0-9]{1,11}}", a.redirect).Methods("GET")
+
+	// 合并middleware
+	a.Router.Handle("/api/shorten", m.ThenFunc(a.createShortlink)).Methods("POST")
+	a.Router.Handle("/api/info", m.ThenFunc(a.getShortlinkInfo)).Methods("GET")
+	a.Router.Handle("/{shortlink:[a-zA-Z0-9]{1,11}}", m.ThenFunc(a.redirect)).Methods("GET")
 }
 
 func (a *App) createShortlink(w http.ResponseWriter, r *http.Request) {
@@ -56,6 +66,12 @@ func (a *App) createShortlink(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 	fmt.Printf("%v\n", req)
+	s, e := a.Config.S.Shorten(req.URL, req.ExpirationInMinutes)
+	if e != nil {
+		respondWithError(w, e)
+	} else {
+		responseWithJson(w, http.StatusCreated, shortlinkResp{Shortlink: s})
+	}
 
 }
 
@@ -82,10 +98,26 @@ func (a *App) getShortlinkInfo(w http.ResponseWriter, r *http.Request) {
 	s := vals.Get("shortlink")
 	fmt.Printf("%s\n", s)
 
+	//panic(s)
+	info, e := a.Config.S.ShortlinkInfo(s)
+	if e != nil {
+		respondWithError(w, e)
+	} else {
+		responseWithJson(w, http.StatusOK, info)
+	}
+
 }
 func (a *App) redirect(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	fmt.Printf("%s\n", vars["shortlink"])
+	//fmt.Printf("%s\n", vars["shortlink"])
+
+	u, e := a.Config.S.Unshorten(vars["shortlink"])
+	if e != nil {
+		respondWithError(w, e)
+	} else {
+		http.Redirect(w, r, u, http.StatusTemporaryRedirect)
+
+	}
 }
 
 func (a *App) Run(addr string) {

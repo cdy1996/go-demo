@@ -12,6 +12,7 @@ require (
 	github.com/justinas/alice v1.2.0
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/pilu/go-base62 v0.0.0-20131214171223-d5f2747573ce
+	github.com/stretchr/testify v1.4.0
 	golang.org/x/net v0.0.0-20191014212845-da9a3fd4c582
 	google.golang.org/grpc v1.24.0
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect

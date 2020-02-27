@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// https://www.cnblogs.com/twoheads/p/11288917.html
 func main() {
 	var ints = []int{2, 3, 1, 1, 4}
 	//ints := make([]int, 5)
@@ -35,4 +36,14 @@ func jump(current int, ints []int) int {
 		}
 	}
 	return -1
+}
+
+func jumpWithGreed(ints []int) bool {
+	var lastPos = len(ints) - 1
+	for i := len(ints) - 1; i >= 0; i-- {
+		if i+ints[i] >= lastPos {
+			lastPos = i
+		}
+	}
+	return lastPos == 0
 }

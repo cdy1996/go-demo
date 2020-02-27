@@ -2,11 +2,15 @@ package main
 
 import "fmt"
 
+// 字符串匹配 jmp算法
 //https://blog.csdn.net/dark_cy/article/details/88698736
 //https://www.cnblogs.com/zhangtianq/p/5839909.html
 //https://www.cnblogs.com/dusf/p/kmp.html
 func main() {
-	kmp := KMP("BBC ABCDAB ABCDABCDABDE", "ABCDABD")
+	str := "GTATAGCTGGTAGCGGCGAA"
+	pattern := "GTAGCGGCG"
+	//kmp := KMP("BBC ABCDAB ABCDABCDABDE", "ABCDABD")
+	kmp := KMP(str, pattern)
 	fmt.Println()
 	fmt.Println(kmp)
 }

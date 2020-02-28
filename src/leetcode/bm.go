@@ -19,12 +19,10 @@ func boyerMoore(str, pattern string) int {
 	strLength := len(str)
 	patternLength := len(pattern)
 	start := 0 //模式串其实位置
-	strr := []rune(str)
-	patternr := []rune(pattern)
 	for start <= strLength-patternLength {
 		var i int
 		for i = patternLength - 1; i >= 0; i-- {
-			if strr[start+i] != patternr[i] {
+			if str[start+i] != pattern[i] {
 				break //发现坏字符
 			}
 
@@ -33,7 +31,7 @@ func boyerMoore(str, pattern string) int {
 			return start //匹配成功,返回第一次匹配的下标位置
 		}
 		// 寻找坏字符在模式串中的对应
-		charIndex := findCharacter(patternr, strr[start+i], i)
+		charIndex := findCharacter(pattern, str[start+i:start+i+1], i)
 		// 计算坏字符在模式串中的对应
 		if charIndex >= 0 {
 			start += i - charIndex
@@ -46,9 +44,9 @@ func boyerMoore(str, pattern string) int {
 }
 
 // 在模式串中, 查找index下标之前额的字符是否和坏字符串匹配
-func findCharacter(pattern []rune, bad rune, index int) int {
+func findCharacter(pattern, bad string, index int) int {
 	for i := index - 1; i > 0; i-- {
-		if pattern[i] == bad {
+		if pattern[i:i+1] == bad {
 			return i
 
 		}

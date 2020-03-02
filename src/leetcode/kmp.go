@@ -7,8 +7,8 @@ import "fmt"
 //https://www.cnblogs.com/zhangtianq/p/5839909.html
 //https://www.cnblogs.com/dusf/p/kmp.html
 func main() {
-	str := "GTATAGCTGGTAGCGGCGAA"
-	pattern := "GTAGCGGCG"
+	str := "bbbbababbbaabbba"
+	pattern := "abb"
 	//kmp := KMP("BBC ABCDAB ABCDABCDABDE", "ABCDABD")
 	kmp := KMP(str, pattern)
 	fmt.Println()

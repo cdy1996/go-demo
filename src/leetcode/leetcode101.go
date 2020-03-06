@@ -21,12 +21,6 @@ func main() {
 	fmt.Printf("%v \n", isSymmetric(node1))
 }
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
 /**
  * Definition for a binary tree node.
  * type TreeNode struct {

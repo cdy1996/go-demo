@@ -6,10 +6,10 @@ import (
 )
 
 func main() {
-	fmt.Printf("%v", isPalindrome(121))
+	fmt.Printf("%v", isPalindrome1(121))
 }
 
-func isPalindrome(x int) bool {
+func isPalindrome1(x int) bool {
 	x1 := x
 	if x < 0 {
 		return false

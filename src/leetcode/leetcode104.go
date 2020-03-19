@@ -52,6 +52,7 @@ func maxDepth(root *TreeNode) int {
 	}
 }
 
+// 树的最大深度
 func maxDepthFor(root *TreeNode) int {
 	var queue []*TreeNode
 

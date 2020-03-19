@@ -11,6 +11,7 @@ func main() {
 
 }
 
+// 是否回文数字
 func isPalindrome(s string) bool {
 	r := []rune(s)
 	l := len(r)

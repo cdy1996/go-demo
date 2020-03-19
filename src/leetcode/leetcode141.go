@@ -38,6 +38,7 @@ func main() {
 //	return true
 //}
 
+// 链表循环判断
 func hasCycle(head *ListNode) bool {
 	if head == nil {
 		return false

@@ -10,6 +10,7 @@ func main() {
 
 }
 
+//寻找两数之和
 func twoSum(numbers []int, target int) []int {
 	len := len(numbers)
 	if len == 0 || len == 1 {

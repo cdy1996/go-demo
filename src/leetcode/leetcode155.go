@@ -18,6 +18,7 @@ func main() {
 
 }
 
+// 最小栈
 type MinStack struct {
 	Min   int
 	Array []int

@@ -32,6 +32,7 @@ func main() {
 
 }
 
+// 查找链表的交叉
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	if headA == nil || headB == nil {
 		return nil

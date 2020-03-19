@@ -9,6 +9,7 @@ func main() {
 
 }
 
+// 查找唯一出现一次的数  异或
 func singleNumber(nums []int) int {
 	if len(nums) == 0 {
 		return 0

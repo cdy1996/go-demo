@@ -39,6 +39,7 @@ func main() {
  *     Right *TreeNode
  * }
  */
+// 树是否相同
 func isSameTree(p *TreeNode, q *TreeNode) bool {
 	if p == nil && q != nil || p != nil && q == nil {
 		return false

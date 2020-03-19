@@ -11,6 +11,7 @@ func main() {
 	fmt.Printf("%v \n", maxProfit([]int{7, 6, 4, 3, 1}))
 }
 
+//最大利益 自底向上
 func maxProfit1(prices []int) int {
 	if len(prices) == 0 {
 		return 0

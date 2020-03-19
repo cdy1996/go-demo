@@ -29,6 +29,7 @@ func main() {
  *     Right *TreeNode
  * }
  */
+// 对称树
 func isSymmetric(root *TreeNode) bool {
 	if root == nil {
 		return true

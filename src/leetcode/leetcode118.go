@@ -8,6 +8,7 @@ func main() {
 	fmt.Printf("%v \n", generate(0))
 }
 
+// 斐波那契数列
 func generate(numRows int) [][]int {
 	var ints = make([][]int, numRows)
 	if numRows <= 0 {

@@ -14,6 +14,7 @@ func main() {
 	fmt.Printf("%v \n", maxProfit([]int{2, 2, 5}))
 }
 
+// 最大股票利益 贪心算法
 func maxProfit(prices []int) int {
 
 	sum := 0

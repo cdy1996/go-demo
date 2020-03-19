@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// 最小值
 func main() {
 	var ints = []int{4, 5, 6, 7, 0, 1, 2}
 

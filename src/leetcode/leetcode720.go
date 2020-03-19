@@ -13,6 +13,7 @@ func main() {
 
 }
 
+// 最长的可遍历单词， 构建字典树
 func longestWord(words []string) string {
 	root := &s.TrieNode{
 		End:   -1,

@@ -8,6 +8,7 @@ func main() {
 	fmt.Printf("%v \n", getRow(3))
 }
 
+// 上台阶 自底向上
 func getRow(rowIndex int) []int {
 	if rowIndex < 0 {
 		return []int{}

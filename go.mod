@@ -23,6 +23,7 @@ require (
 	github.com/sirupsen/logrus v1.4.2 // indirect
 	github.com/stretchr/testify v1.4.0
 	golang.org/x/net v0.0.0-20191014212845-da9a3fd4c582
+	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1
 	google.golang.org/grpc v1.24.0
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/go-playground/validator.v9 v9.30.2

@@ -9,12 +9,6 @@ func main() {
 
 }
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
 // 树转二维数组
 func levelOrderBottom(root *TreeNode) [][]int {
 	var result [][]int

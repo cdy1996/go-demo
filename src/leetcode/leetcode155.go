@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	stack := Constructor()
+	stack := Stack()
 	stack.Push(-2)
 	stack.Push(0)
 	stack.Push(-3)
@@ -25,7 +25,7 @@ type MinStack struct {
 }
 
 /** initialize your data structure here. */
-func Constructor() MinStack {
+func Stack() MinStack {
 	return MinStack{
 		Min:   math.MaxInt32,
 		Array: make([]int, 0),
@@ -80,7 +80,7 @@ func (this *MinStack) GetMin() int {
 
 /**
  * Your MinStack object will be instantiated and called as such:
- * obj := Constructor();
+ * obj := Stack();
  * obj.Push(x);
  * obj.Pop();
  * param_3 := obj.Top();

@@ -4,6 +4,7 @@ go 1.12
 
 require (
 	github.com/FZambia/sentinel v1.1.0 // indirect
+	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0
 	github.com/go-locks/distlock v1.0.0
 	github.com/go-locks/redis-driver v0.0.0-20190219123656-98f87a13152f

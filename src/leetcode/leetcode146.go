@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	cache := Constructor(2)
+	cache := Constructor1(2)
 
 	//cache.Put(1, 1)
 	//cache.Put(2, 2)
@@ -34,7 +34,7 @@ type LRUCache struct {
 	Len  int
 }
 
-func Constructor(capacity int) LRUCache {
+func Constructor1(capacity int) LRUCache {
 	return LRUCache{
 		Map:  make(map[int]int),
 		List: New(),
